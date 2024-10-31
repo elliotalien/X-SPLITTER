@@ -26,8 +26,8 @@ export const config = {
 
 const handleVideoUpload = async (req, res) => {
   const form = new IncomingForm({
-    maxFileSize: 5 * 1024 * 1024 * 1024, 
-    maxTotalFileSize: 5 * 1024 * 1024 * 1024,
+    maxFileSize: 10 * 1024 * 1024 * 1024, 
+    maxTotalFileSize: 10 * 1024 * 1024 * 1024,
   });
   let segmentTime = 120; // Default segment time in seconds
 
