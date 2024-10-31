@@ -21,19 +21,18 @@ const UploadForm = () => {
 
     setUploading(true);
 
-    const formData = new FormData();
-    formData.append("video", file);
-    formData.append("segmentTime", segmentTime);
+    const presignedUrl = await fetch('/api/getPresignedUrl');
 
     try {
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
+      const res = await fetch(presignedUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': file.type,
+        },
       });
 
       if (res.ok) {
-        const data = await res.json();
-        setOutputLinks(data.files);
         toast.success("Video uploaded successfully!");
       } else {
         toast.error("There was an error uploading your video.");
