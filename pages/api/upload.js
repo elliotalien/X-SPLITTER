@@ -123,6 +123,8 @@ const handleVideoUpload = async (req, res) => {
   } finally {
     // Clean up temporary files
     try {
+      // Ensure temp directory exists before reading
+      await fs.access(tempDir);
       const tempSegmentFiles = await fs.readdir(tempDir);
       await Promise.all(tempSegmentFiles.map(async file => {
         const filePath = path.join(tempDir, file);
